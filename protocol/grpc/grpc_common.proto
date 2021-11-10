@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package = ".;code";
+option go_package = ".;grpc_code";
 package grpc_handler;
 
 message OperationRequest {
