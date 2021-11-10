@@ -1,0 +1,21 @@
+syntax = "proto3";
+option go_package = ".;code";
+package grpc_handler;
+
+message OperationRequest {
+    uint32 protocol_id = 1; // 协议ID，操作类型，各个模块根据规范自定义的操作类型值
+    bytes param_value = 2; // 调用参数值，根据 protocol_id 的值解析成具体的消息体
+    string call_path = 3;   //java调用路径
+}
+
+message OperationReply {
+    int32 result = 1; // 0成功，非0失败，失败则返回对应具体的错误码
+    uint32 protocol_id = 2; // 协议ID，操作类型，各个模块根据规范自定义的操作类型值
+    bytes return_value = 3; // 调用结果返回值，根据 protocol_id 的值解析成具体的消息体，成功才会填值，失败为空
+}
+
+service OperationHandler {
+    rpc SendMessage (OperationRequest) returns (OperationReply) {
+    }
+}
+
